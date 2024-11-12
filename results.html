@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="result-container">
+        <h1>Your Personality Type</h1>
+        <p id="result-text"></p>
+    </div>
+    <script>
+        function getResults() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const scores = JSON.parse(decodeURIComponent(urlParams.get('scores')));
+            
+            const traits = Object.keys(scores);
+            const dominantTraits = traits.filter(trait => scores[trait] >= 1);
+
+            document.getElementById('result-text').innerText = `You are: ${dominantTraits.join(", ")}`;
+        }
+
+        window.onload = getResults;
+    </script>
+</body>
+</html>
